@@ -3,19 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Latitude — Coming Soon</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Latitude</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink:        #1a1a18;
-    --ink-soft:   #3d3d38;
-    --ink-muted:  #7a7a72;
-    --teal:       #1a6b5e;
-    --teal-light: #e8f2f0;
-    --teal-mid:   #a8cdc7;
-    --paper:      #f8f7f4;
-    --paper-warm: #f0ede8;
-    --border:     #e2dfd9;
+    --ink:      #1a1a18;
+    --teal:     #1a6b5e;
+    --teal-mid: #a8cdc7;
+    --paper:    #f8f7f4;
+    --border:   #e2dfd9;
     --serif: 'Playfair Display', Georgia, serif;
     --sans:  'Inter', system-ui, sans-serif;
   }
@@ -24,80 +20,31 @@
 
   html, body {
     height: 100%;
-  }
-
-  body {
     font-family: var(--sans);
     background: var(--paper);
     color: var(--ink);
     -webkit-font-smoothing: antialiased;
+  }
+
+  body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-  }
-
-  /* ── HEADER ── */
-  header {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 10;
-    display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 48px;
-    height: 64px;
-    background: rgba(248,247,244,0.92);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .logo {
-    font-family: var(--serif);
-    font-size: 22px;
-    font-weight: 500;
-    color: var(--ink);
-    letter-spacing: -0.3px;
-    text-decoration: none;
-  }
-  .logo span { color: var(--teal); }
-
-  .header-note {
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 0.08em;
-    color: var(--ink-muted);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .header-note::before {
-    content: '';
-    display: block;
-    width: 20px;
-    height: 1px;
-    background: var(--teal-mid);
-  }
-
-  /* ── MAIN ── */
-  main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
     justify-content: center;
-    padding: 64px 48px 80px;
+    min-height: 100vh;
+    padding: 48px;
     position: relative;
     overflow: hidden;
   }
 
-  /* background lettermark */
+  /* ghosted background lettermark */
   .bg-mark {
     position: absolute;
     top: 50%;
-    right: -4vw;
-    transform: translateY(-50%);
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-family: var(--serif);
-    font-size: clamp(160px, 24vw, 320px);
+    font-size: clamp(140px, 22vw, 300px);
     font-weight: 500;
     color: transparent;
     -webkit-text-stroke: 1px var(--border);
@@ -106,272 +53,81 @@
     user-select: none;
     pointer-events: none;
     opacity: 0;
-    animation: appear 1.4s ease 0.1s forwards;
+    animation: appear 1.6s ease forwards;
   }
 
-  /* ── CONTENT ── */
-  .content {
+  /* center content */
+  .center {
     position: relative;
     z-index: 2;
-    max-width: 640px;
-    opacity: 0;
-    animation: rise 1s ease 0.5s forwards;
-  }
-
-  .eyebrow {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 28px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .eyebrow::before {
-    content: '';
-    display: block;
-    width: 28px;
-    height: 1px;
-    background: var(--teal);
-  }
-
-  h1 {
-    font-family: var(--serif);
-    font-size: clamp(38px, 5.5vw, 68px);
-    font-weight: 400;
-    line-height: 1.1;
-    letter-spacing: -1.5px;
-    color: var(--ink);
-    margin-bottom: 28px;
-  }
-  h1 em {
-    font-style: italic;
-    color: var(--teal);
-  }
-
-  .sub {
-    font-size: 17px;
-    font-weight: 300;
-    color: var(--ink-soft);
-    line-height: 1.7;
-    max-width: 480px;
-    margin-bottom: 52px;
-  }
-
-  /* ── EMAIL FORM ── */
-  .form-label {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    margin-bottom: 12px;
-  }
-
-  .form-row {
-    display: flex;
-    gap: 0;
-    max-width: 420px;
-    margin-bottom: 12px;
-  }
-
-  .form-input {
-    flex: 1;
-    height: 48px;
-    padding: 0 18px;
-    font-size: 14px;
-    font-family: var(--sans);
-    color: var(--ink);
-    background: #fff;
-    border: 1px solid var(--border);
-    border-right: none;
-    border-radius: 4px 0 0 4px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .form-input::placeholder { color: var(--ink-muted); }
-  .form-input:focus { border-color: var(--teal-mid); }
-
-  .form-btn {
-    height: 48px;
-    padding: 0 24px;
-    font-size: 13px;
-    font-weight: 500;
-    font-family: var(--sans);
-    color: #fff;
-    background: var(--teal);
-    border: none;
-    border-radius: 0 4px 4px 0;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background 0.2s;
-  }
-  .form-btn:hover { background: #155a4e; }
-
-  .form-note {
-    font-size: 12px;
-    color: var(--ink-muted);
-    line-height: 1.5;
-  }
-
-  /* ── DIVIDER ── */
-  .content-divider {
-    width: 40px;
-    height: 1px;
-    background: var(--border);
-    margin: 48px 0;
-  }
-
-  /* ── WHAT'S COMING ── */
-  .coming-label {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    margin-bottom: 20px;
-  }
-
-  .coming-list {
+    text-align: center;
     display: flex;
     flex-direction: column;
-    gap: 0;
-    max-width: 380px;
-  }
-
-  .coming-item {
-    display: flex;
-    align-items: baseline;
-    gap: 14px;
-    padding: 11px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 14px;
-    color: var(--ink-soft);
-  }
-  .coming-item:first-child { border-top: 1px solid var(--border); }
-
-  .coming-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--teal-mid);
-    flex-shrink: 0;
-    margin-top: 3px;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    padding: 24px 48px;
-    border-top: 1px solid var(--border);
-    display: flex;
     align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
+    gap: 20px;
+    opacity: 0;
+    animation: rise 1s ease 0.6s forwards;
   }
 
-  .footer-copy {
-    font-size: 12px;
-    color: var(--ink-muted);
+  .logo {
+    font-family: var(--serif);
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 400;
+    letter-spacing: -1px;
+    color: var(--ink);
+  }
+  .logo span { color: var(--teal); }
+
+  .divider {
+    width: 32px;
+    height: 1px;
+    background: var(--teal-mid);
   }
 
-  .footer-contact {
-    font-size: 12px;
+  .wip {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
     color: var(--teal);
-    text-decoration: none;
-    transition: color 0.2s;
   }
-  .footer-contact:hover { color: #155a4e; }
 
-  /* ── ANIMATIONS ── */
+  /* footer */
+  footer {
+    position: absolute;
+    bottom: 36px;
+    left: 0; right: 0;
+    text-align: center;
+    font-size: 11px;
+    color: #b0ada8;
+    letter-spacing: 0.04em;
+  }
+
   @keyframes appear {
     from { opacity: 0; }
     to   { opacity: 1; }
   }
   @keyframes rise {
-    from { opacity: 0; transform: translateY(18px); }
+    from { opacity: 0; transform: translateY(12px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 640px) {
-    header  { padding: 0 24px; }
-    main    { padding: 80px 24px 60px; }
-    footer  { padding: 20px 24px; }
-
-    .bg-mark { font-size: 120px; right: -8vw; }
-
-    .form-row { flex-direction: column; }
-    .form-input  { border-right: 1px solid var(--border); border-bottom: none; border-radius: 4px 4px 0 0; }
-    .form-btn    { border-radius: 0 0 4px 4px; }
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .bg-mark, .content { animation: none; opacity: 1; }
+    .bg-mark, .center { animation: none; opacity: 1; }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <a href="/" class="logo">Latitude<span>.</span></a>
-  <p class="header-note">Work in progress</p>
-</header>
+<div class="bg-mark" aria-hidden="true">Latitude</div>
 
-<main>
-  <div class="bg-mark" aria-hidden="true">Latitude</div>
+<div class="center">
+  <p class="logo">Latitude<span>.</span></p>
+  <div class="divider" aria-hidden="true"></div>
+  <p class="wip">Work in progress</p>
+</div>
 
-  <div class="content">
-
-    <p class="eyebrow">We're building</p>
-
-    <h1>
-      Something worth<br>
-      the <em>wait</em>.
-    </h1>
-
-    <p class="sub">
-      Latitude is a career coaching and people strategy practice built for the people who take their careers — and their companies — seriously. We're putting the finishing touches on our site. Leave your email and we'll let you know when we're ready.
-    </p>
-
-    <p class="form-label">Get notified</p>
-    <div class="form-row">
-      <input class="form-input" type="email" placeholder="your@email.com" aria-label="Email address">
-      <button class="form-btn">Notify me</button>
-    </div>
-    <p class="form-note">No noise. Just a single note when we launch.</p>
-
-    <div class="content-divider" aria-hidden="true"></div>
-
-    <p class="coming-label">What's coming</p>
-    <div class="coming-list" role="list">
-      <div class="coming-item" role="listitem">
-        <div class="coming-dot" aria-hidden="true"></div>
-        Career coaching for individuals at every stage
-      </div>
-      <div class="coming-item" role="listitem">
-        <div class="coming-dot" aria-hidden="true"></div>
-        People strategy and consulting for startups
-      </div>
-      <div class="coming-item" role="listitem">
-        <div class="coming-dot" aria-hidden="true"></div>
-        Leadership development across the full arc
-      </div>
-      <div class="coming-item" role="listitem">
-        <div class="coming-dot" aria-hidden="true"></div>
-        Fractional people partnerships for growing teams
-      </div>
-    </div>
-
-  </div>
-</main>
-
-<footer>
-  <p class="footer-copy">© 2026 Latitude. New York · Working globally.</p>
-  <a class="footer-contact" href="mailto:hello@latitude.co">hello@latitude.co</a>
-</footer>
+<footer>© 2026 Latitude</footer>
 
 </body>
 </html>
